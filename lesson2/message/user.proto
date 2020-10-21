@@ -1,0 +1,30 @@
+syntax = "proto3"; // 指定版本
+
+package message; // 定义包名
+
+// 消息类型 1
+message UserRequest {
+    int64 uid = 1;
+    string username = 2;
+}
+// 消息类型 2
+message UserResponse {
+    int64 uid = 1;
+    string username = 2;
+    int32 age = 3;
+    Gender gender = 4;
+    Contact contact = 5; // 嵌套类型
+}
+// 枚举
+enum Gender { 
+    UNKNOW = 0;
+    MALE = 1;
+    FEMALE = 2;
+}
+
+// 消息类型 3
+message Contact {
+    string tel = 1;
+    string wechat = 2;
+    string email = 3;
+}
