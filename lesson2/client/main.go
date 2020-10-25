@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Desktop/advanced_go/lesson2/message"
+	pb "Desktop/advanced_go/lesson2/proto"
 	"fmt"
 	"log"
 	"net/rpc"
@@ -13,7 +13,7 @@ import (
 
 func main() {
 	client, _ := rpc.DialHTTP("tcp", ":8081")
-	request := &message.UserRequest{
+	request := &pb.UserRequest{
 		Uid:      1,
 		Username: "frank",
 	}
@@ -22,7 +22,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	var user message.UserResponse
+	var user pb.UserResponse
 	_ = client.Call("User.GetUser", requestByte, &user)
 	fmt.Printf("user:%+v", user)
 }
