@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Desktop/intermediate_go/lesson6/message"
+	proto "Desktop/intermediate_go/lesson6/message"
 	"fmt"
 	"net/rpc"
 )
@@ -11,7 +11,7 @@ import (
 func main() {
 	client, _ := rpc.DialHTTP("tcp", ":8081")
 	id := 2
-	var user message.User
+	var user proto.User
 	// _ = client.Call("User.GetUser", id, &user)
 	// fmt.Println(user)
 	userCall := client.Go("User.GetUser", id, &user, nil)
