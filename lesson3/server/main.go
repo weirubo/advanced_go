@@ -1,9 +1,9 @@
 package main
 
 import (
-	pb "Desktop/advanced_go/lesson3/proto"
 	"context"
 	"io"
+	pb "lesson3/proto"
 	"net"
 
 	"google.golang.org/grpc"

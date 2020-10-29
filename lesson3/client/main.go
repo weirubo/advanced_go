@@ -1,10 +1,10 @@
 package main
 
 import (
-	pb "Desktop/advanced_go/lesson3/proto"
 	"context"
 	"fmt"
 	"io"
+	pb "lesson3/proto"
 	"log"
 	"time"
 
