@@ -1,7 +1,7 @@
 package main
 
 import (
-	proto "Desktop/intermediate_go/lesson6/message"
+	proto "lesson1/proto"
 	"net"
 	"net/http"
 	"net/rpc"
