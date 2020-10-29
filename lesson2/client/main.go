@@ -1,8 +1,8 @@
 package main
 
 import (
-	pb "Desktop/advanced_go/lesson2/proto"
 	"fmt"
+	pb "lesson2/proto"
 	"log"
 	"net/rpc"
 
