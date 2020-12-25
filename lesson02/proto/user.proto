@@ -1,0 +1,20 @@
+syntax = "proto3";
+package proto;
+message UserRequest {
+   int64 Uid = 1;
+   string Username = 2;
+}
+
+message UserResponse {
+    int64 Uid = 1;
+    string Username = 2;
+    int32 Age = 3;
+    string Wechat = 4;
+}
+
+service UserService {
+    // 简单模式
+    rpc GetUser (UserRequest) returns (UserResponse);
+    // 双向流模式
+    rpc GetUserStream (stream UserRequest) returns (stream UserResponse);
+}
