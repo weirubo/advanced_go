@@ -4,3 +4,4 @@
 3. [Go 语言中的 gRPC 基础入门](https://mp.weixin.qq.com/s/Vjt6R91tESuNQZeB5kUXsQ)
 4. [Golang 语言 gRPC 使用的接口设计语言 protobuf](https://mp.weixin.qq.com/s/uEtTSkb4xcymuxACTjxBCw)
 5. [Golang 语言 gRPC 到底是什么？](https://mp.weixin.qq.com/s/O36Xrufq60Vpoijh5LCDtw)
+6. [Golang 语言 gRPC 怎么使用？](https://mp.weixin.qq.com/s/dzBrxZ4Q7TnuTXkKzXkASQ)
