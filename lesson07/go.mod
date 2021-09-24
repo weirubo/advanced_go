@@ -1,4 +1,4 @@
-module grpc-demo
+module lesson07
 
 go 1.13
 

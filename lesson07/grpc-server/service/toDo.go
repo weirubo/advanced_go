@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	pb "grpc-demo/grpc-server/pb"
+	pb "lesson07/grpc-server/pb"
 	"log"
 )
 

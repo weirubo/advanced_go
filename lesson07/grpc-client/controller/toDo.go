@@ -3,8 +3,8 @@ package controller
 import (
 	"context"
 	"github.com/gin-gonic/gin"
-	"grpc-demo/grpc-client/client"
-	pb "grpc-demo/grpc-server/pb"
+	"lesson07/grpc-client/client"
+	pb "lesson07/grpc-server/pb"
 	"log"
 	"net/http"
 	"time"

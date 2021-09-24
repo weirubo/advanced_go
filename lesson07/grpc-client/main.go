@@ -1,7 +1,7 @@
 package main
 
 import (
-	"grpc-demo/grpc-client/router"
+	"lesson07/grpc-client/router"
 )
 
 func main () {

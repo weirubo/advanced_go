@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"grpc-demo/grpc-client/controller"
+	"lesson07/grpc-client/controller"
 )
 
 func NewEngine ()  *gin.Engine{
