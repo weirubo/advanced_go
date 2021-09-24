@@ -3,7 +3,7 @@ package controller
 import (
 	"context"
 	"github.com/gin-gonic/gin"
-	"lesson07/grpc-client/client"
+	"google.golang.org/grpc"
 	pb "lesson07/grpc-client/pb/todoPb"
 	"log"
 	"net/http"
@@ -22,7 +22,7 @@ func CreateToDoList(ctx *gin.Context) {
 		Content:  "看书一小时",
 		Datetime: time.Now().Unix(),
 	}
-	conn := client.NewToDoListClient()
+	conn := NewToDoListClient()
 	defer func() {
 		err := conn.Close()
 		if err != nil {
@@ -43,4 +43,12 @@ func CreateToDoList(ctx *gin.Context) {
 		Data:    res.Record,
 	}
 	ctx.JSON(http.StatusOK, rst)
+}
+
+func NewToDoListClient() *grpc.ClientConn {
+	conn, err := grpc.Dial("localhost:8081", grpc.WithInsecure(), grpc.WithBlock())
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	return conn
 }
