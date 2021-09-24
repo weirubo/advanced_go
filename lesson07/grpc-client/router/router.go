@@ -8,8 +8,11 @@ import (
 func NewEngine() *gin.Engine {
 	r := gin.Default()
 	apiV1 := r.Group("/v1")
+	todolist := apiV1.Group("/todolist")
 	{
-		apiV1.GET("/add", controller.CreateToDoList)
+		todolist.POST("/add", controller.CreateToDoList)
+		todolist.GET("/all", controller.ReadToDoList)
+		todolist.POST("/del", controller.DeleteToDoList)
 	}
 	return r
 }

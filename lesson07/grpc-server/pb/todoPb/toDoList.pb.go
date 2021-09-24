@@ -74,9 +74,12 @@ type ToDoListContent struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id       int64  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Content  string `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
-	Datetime int64  `protobuf:"varint,3,opt,name=datetime,proto3" json:"datetime,omitempty"`
+	// @inject_tag: form:"id"
+	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" form:"id"`
+	// @inject_tag: form:"content"
+	Content string `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty" form:"content"`
+	// @inject_tag: form:"datetime"
+	Datetime int64 `protobuf:"varint,3,opt,name=datetime,proto3" json:"datetime,omitempty" form:"datetime"`
 }
 
 func (x *ToDoListContent) Reset() {

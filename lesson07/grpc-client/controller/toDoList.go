@@ -17,10 +17,11 @@ type Result struct {
 }
 
 func CreateToDoList(ctx *gin.Context) {
-	param := &pb.ToDoListContent{
-		Id:       1,
-		Content:  "看书一小时",
-		Datetime: time.Now().Unix(),
+	param := new(pb.ToDoListContent)
+	param.Datetime = time.Now().Unix()
+	err := ctx.ShouldBind(param)
+	if err != nil {
+		log.Fatalf("param error=%+v", param)
 	}
 	conn := NewToDoListClient()
 	defer func() {
@@ -45,6 +46,13 @@ func CreateToDoList(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, rst)
 }
 
+func ReadToDoList(ctx *gin.Context) {
+
+}
+
+func DeleteToDoList(ctx *gin.Context) {
+
+}
 func NewToDoListClient() *grpc.ClientConn {
 	conn, err := grpc.Dial("localhost:8081", grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {

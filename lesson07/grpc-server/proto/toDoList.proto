@@ -12,8 +12,11 @@ message Result {
 }
 
 message ToDoListContent {
+  // @inject_tag: form:"id"
   int64 id = 1;
+  // @inject_tag: form:"content"
   string content = 2;
+  // @inject_tag: form:"datetime"
   int64 datetime = 3;
 }
 
