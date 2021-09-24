@@ -31,7 +31,6 @@ func CreateToDoList(ctx *gin.Context) {
 		}
 	}()
 	cli := pb.NewToDoListClient(conn)
-
 	ctx1, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	res, err := cli.CreateToDoList(ctx1, param)
@@ -46,13 +45,18 @@ func CreateToDoList(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, rst)
 }
 
+func DeleteToDoList(ctx *gin.Context) {
+
+}
+
+func UpdateToDoList(ctx *gin.Context) {
+
+}
+
 func ReadToDoList(ctx *gin.Context) {
 
 }
 
-func DeleteToDoList(ctx *gin.Context) {
-
-}
 func NewToDoListClient() *grpc.ClientConn {
 	conn, err := grpc.Dial("localhost:8081", grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {

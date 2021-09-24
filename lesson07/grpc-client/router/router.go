@@ -11,8 +11,9 @@ func NewEngine() *gin.Engine {
 	todolist := apiV1.Group("/todolist")
 	{
 		todolist.POST("/add", controller.CreateToDoList)
-		todolist.GET("/all", controller.ReadToDoList)
-		todolist.POST("/del", controller.DeleteToDoList)
+		todolist.POST("/delete", controller.DeleteToDoList)
+		todolist.POST("/edit", controller.UpdateToDoList)
+		todolist.GET("/select", controller.ReadToDoList)
 	}
 	return r
 }
