@@ -7,11 +7,11 @@ import (
 	"log"
 )
 
-type ToDo struct {
+type ToDoList struct {
 	pb.UnimplementedToDoListServer
 }
 
-func (t *ToDo) CreateToDo(ctx context.Context, in *pb.ToDoContent) (*pb.Result, error) {
+func (t *ToDoList) CreateToDoList(ctx context.Context, in *pb.ToDoListContent) (*pb.Result, error) {
 	log.Printf("id: %d content:%v datetime:%d\n", in.GetId(), in.GetContent(), in.GetDatetime())
 	record, err := dao.Add(ctx, in)
 	data := &pb.Result{Record: record}

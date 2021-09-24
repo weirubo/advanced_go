@@ -5,8 +5,11 @@ import (
 	"lesson07/grpc-client/controller"
 )
 
-func NewEngine ()  *gin.Engine{
+func NewEngine() *gin.Engine {
 	r := gin.Default()
-	r.GET("/add", controller.CreateToDo)
+	apiV1 := r.Group("/v1")
+	{
+		apiV1.GET("/add", controller.CreateToDoList)
+	}
 	return r
 }

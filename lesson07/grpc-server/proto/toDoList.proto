@@ -4,20 +4,20 @@ syntax = "proto3";
 option go_package = "./todoPb";
 
 service ToDoList {
-  rpc CreateToDo (ToDoContent) returns (Result) {}
+  rpc CreateToDoList (ToDoListContent) returns (Result) {}
 }
 
 message Result {
   int64 record = 1;
 }
 
-message ToDoContent {
+message ToDoListContent {
   int64 id = 1;
   string content = 2;
   int64 datetime = 3;
 }
 
-message ToDoDetail {
+message ToDoListDetail {
   // @inject_tag: xorm:"'id' not null pk autoincr"
   int64 id = 1;
   // @inject_tag: xorm:"'content' varchar(300) not null default ''"

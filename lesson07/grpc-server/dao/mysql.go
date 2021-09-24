@@ -9,9 +9,9 @@ var eg *xorm.EngineGroup
 
 func NewEngine() (*xorm.EngineGroup, error) {
 	cons := []string{
-		"mysql://mysql:root@localhost:3306/to_do?sslmode=disable;",
-		"mysql://mysql:root@localhost:3306/to_do?sslmode=disable;",
-		"mysql://mysql:root@localhost:3306/to_do?sslmode=disable",
+		"root:root@(127.0.0.1:3306)/grpc_todolist?charset=utf8",
+		"root:root@(127.0.0.1:3306)/grpc_todolist?charset=utf8",
+		"root:root@(127.0.0.1:3306)/grpc_todolist?charset=utf8",
 	}
 
 	var err error

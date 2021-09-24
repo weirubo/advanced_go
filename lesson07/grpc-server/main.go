@@ -10,21 +10,27 @@ import (
 )
 
 const (
-	port = ":8081"
+	port    = ":8081"
+	address = "127.0.0.1" + port
 )
 
 func main() {
-	lis, err := net.Listen("tcp", port)
+	InitEngine()
+	lis, err := net.Listen("tcp", address)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	server := grpc.NewServer()
-	pb.RegisterToDoListServer(server, new(service.ToDo))
+	pb.RegisterToDoListServer(server, new(service.ToDoList))
 	log.Printf("server listening at %v\n", lis.Addr())
 	if err := server.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
-	_, err = dao.NewEngine()
+
+}
+
+func InitEngine() {
+	_, err := dao.NewEngine()
 	if err != nil {
 		log.Fatalf("mysql engine failed: %v", err)
 	}
