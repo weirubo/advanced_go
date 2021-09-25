@@ -18,7 +18,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ToDoListClient interface {
-	CreateToDoList(ctx context.Context, in *ToDoListContent, opts ...grpc.CallOption) (*Result, error)
+	CreateToDoList(ctx context.Context, in *ToDoListDetail, opts ...grpc.CallOption) (*ToDoListResult, error)
+	ReadToDoList(ctx context.Context, in *ToDoListPage, opts ...grpc.CallOption) (*ToDoListByPage, error)
 }
 
 type toDoListClient struct {
@@ -29,9 +30,18 @@ func NewToDoListClient(cc grpc.ClientConnInterface) ToDoListClient {
 	return &toDoListClient{cc}
 }
 
-func (c *toDoListClient) CreateToDoList(ctx context.Context, in *ToDoListContent, opts ...grpc.CallOption) (*Result, error) {
-	out := new(Result)
+func (c *toDoListClient) CreateToDoList(ctx context.Context, in *ToDoListDetail, opts ...grpc.CallOption) (*ToDoListResult, error) {
+	out := new(ToDoListResult)
 	err := c.cc.Invoke(ctx, "/ToDoList/CreateToDoList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *toDoListClient) ReadToDoList(ctx context.Context, in *ToDoListPage, opts ...grpc.CallOption) (*ToDoListByPage, error) {
+	out := new(ToDoListByPage)
+	err := c.cc.Invoke(ctx, "/ToDoList/ReadToDoList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +52,8 @@ func (c *toDoListClient) CreateToDoList(ctx context.Context, in *ToDoListContent
 // All implementations must embed UnimplementedToDoListServer
 // for forward compatibility
 type ToDoListServer interface {
-	CreateToDoList(context.Context, *ToDoListContent) (*Result, error)
+	CreateToDoList(context.Context, *ToDoListDetail) (*ToDoListResult, error)
+	ReadToDoList(context.Context, *ToDoListPage) (*ToDoListByPage, error)
 	mustEmbedUnimplementedToDoListServer()
 }
 
@@ -50,8 +61,11 @@ type ToDoListServer interface {
 type UnimplementedToDoListServer struct {
 }
 
-func (UnimplementedToDoListServer) CreateToDoList(context.Context, *ToDoListContent) (*Result, error) {
+func (UnimplementedToDoListServer) CreateToDoList(context.Context, *ToDoListDetail) (*ToDoListResult, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateToDoList not implemented")
+}
+func (UnimplementedToDoListServer) ReadToDoList(context.Context, *ToDoListPage) (*ToDoListByPage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadToDoList not implemented")
 }
 func (UnimplementedToDoListServer) mustEmbedUnimplementedToDoListServer() {}
 
@@ -67,7 +81,7 @@ func RegisterToDoListServer(s grpc.ServiceRegistrar, srv ToDoListServer) {
 }
 
 func _ToDoList_CreateToDoList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ToDoListContent)
+	in := new(ToDoListDetail)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -79,7 +93,25 @@ func _ToDoList_CreateToDoList_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: "/ToDoList/CreateToDoList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ToDoListServer).CreateToDoList(ctx, req.(*ToDoListContent))
+		return srv.(ToDoListServer).CreateToDoList(ctx, req.(*ToDoListDetail))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ToDoList_ReadToDoList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ToDoListPage)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ToDoListServer).ReadToDoList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ToDoList/ReadToDoList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ToDoListServer).ReadToDoList(ctx, req.(*ToDoListPage))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -94,6 +126,10 @@ var ToDoList_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateToDoList",
 			Handler:    _ToDoList_CreateToDoList_Handler,
+		},
+		{
+			MethodName: "ReadToDoList",
+			Handler:    _ToDoList_ReadToDoList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "./todoPb";
+option go_package = "./userPb";
 
 service User {
   rpc Register (UserInfo) returns (Result) {}
@@ -8,11 +8,22 @@ service User {
 }
 
 message UserInfo {
+  // @inject_tag: form:"id"
   int64 id = 1;
+  // @inject_tag: form:"name"
   string name = 2;
+  // @inject_tag: form:"email"
   string email = 3;
+  // @inject_tag: form:"phone"
   string phone = 4;
+  // @inject_tag: form:"password"
   string password = 5;
+  // @inject_tag: xorm:"'created_at' created"
+  int64 created = 6;
+  // @inject_tag: xorm:"'updated_at' updated"
+  int64 updated = 7;
+  // @inject_tag: xorm:"'deleted_at' deleted"
+  int64 deleted = 8;
 }
 
 message Result {
