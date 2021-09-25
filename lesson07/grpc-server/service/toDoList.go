@@ -19,5 +19,10 @@ func (t *ToDoList) CreateToDoList(ctx context.Context, in *pb.ToDoListDetail) (*
 }
 
 func (t *ToDoList) ReadToDoList(ctx context.Context, in *pb.ToDoListPage) (*pb.ReadToDoListByPage, error) {
-	return nil, nil
+	toDoListDetails, err := dao.Select(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	data := &pb.ReadToDoListByPage{Todolist: toDoListDetails}
+	return data, nil
 }

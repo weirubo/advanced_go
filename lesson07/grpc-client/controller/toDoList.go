@@ -7,6 +7,7 @@ import (
 	pb "lesson07/grpc-client/pb/todoPb"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -54,7 +55,31 @@ func UpdateToDoList(ctx *gin.Context) {
 }
 
 func ReadToDoList(ctx *gin.Context) {
-
+	page, _ := strconv.ParseInt(ctx.Query("page"), 10, 64)
+	count, _ := strconv.ParseInt(ctx.Query("count"), 10, 64)
+	param := new(pb.ToDoListPage)
+	param.Page = page
+	param.Count = count
+	cc := NewToDoListClient()
+	defer func() {
+		err := cc.Close()
+		if err != nil {
+			log.Fatalf("conn close error=%v", err)
+		}
+	}()
+	cli := pb.NewToDoListClient(cc)
+	ctx1, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	res, err := cli.ReadToDoList(ctx1, param)
+	if err != nil {
+		log.Fatalf("read todolist err: %v", err)
+	}
+	rst := Result{
+		Code:    10001,
+		Message: "read todolist success",
+		Data:    &res.Todolist,
+	}
+	ctx.JSON(http.StatusOK, rst)
 }
 
 func NewToDoListClient() *grpc.ClientConn {

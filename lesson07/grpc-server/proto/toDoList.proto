@@ -31,6 +31,7 @@ message CreateToDoListResult {
 
 message ToDoListPage {
   int64 page = 1;
+  int64 count = 2;
 }
 
 message ReadToDoListByPage {
