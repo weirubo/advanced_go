@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+service User {
+  rpc Register (UserInfo) returns (Result) {}
+  rpc Login (UserInfo) returns (Result) {}
+}
+
+message UserInfo {
+  int64 id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string password = 5;
+}
+
+message Result {
+  int64 id = 1;
+}

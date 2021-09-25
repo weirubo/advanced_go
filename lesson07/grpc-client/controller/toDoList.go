@@ -23,14 +23,14 @@ func CreateToDoList(ctx *gin.Context) {
 	if err != nil {
 		log.Fatalf("param error=%+v", param)
 	}
-	conn := NewToDoListClient()
+	cc := NewToDoListClient()
 	defer func() {
-		err := conn.Close()
+		err := cc.Close()
 		if err != nil {
 			log.Fatalf("conn close error=%v", err)
 		}
 	}()
-	cli := pb.NewToDoListClient(conn)
+	cli := pb.NewToDoListClient(cc)
 	ctx1, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	res, err := cli.CreateToDoList(ctx1, param)
@@ -58,9 +58,9 @@ func ReadToDoList(ctx *gin.Context) {
 }
 
 func NewToDoListClient() *grpc.ClientConn {
-	conn, err := grpc.Dial("localhost:8081", grpc.WithInsecure(), grpc.WithBlock())
+	cc, err := grpc.Dial("localhost:8081", grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
-	return conn
+	return cc
 }
