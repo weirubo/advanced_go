@@ -1,4 +1,4 @@
-module advanced_go/lesson07
+module lesson07
 
 go 1.17
 
