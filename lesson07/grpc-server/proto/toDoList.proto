@@ -11,16 +11,18 @@ service ToDoList {
 message ToDoListDetail {
   // @inject_tag: form:"id" xorm:"'id' not null pk autoincr"
   int64 id = 1;
+  // @inject_tag: form:"uid" xorm:"'uid' bigint(20) not null default 0"
+  int64 uid = 2;
   // @inject_tag: form:"content" xorm:"'content' varchar(300) not null default ''"
-  string content = 2;
+  string content = 3;
   // @inject_tag: form:"datetime" xorm:"'datetime' int(10) not null default 0"
-  int64 datetime = 3;
+  int64 datetime = 4;
   // @inject_tag: xorm:"'created_at' created"
-  int64 created = 4;
+  int64 created = 5;
   // @inject_tag: xorm:"'updated_at' updated"
-  int64 updated = 5;
+  int64 updated = 6;
   // @inject_tag: xorm:"'deleted_at' deleted"
-  int64 deleted = 6;
+  int64 deleted = 7;
 }
 
 message CreateToDoListResult {
