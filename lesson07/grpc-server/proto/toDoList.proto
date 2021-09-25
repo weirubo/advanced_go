@@ -4,10 +4,15 @@ syntax = "proto3";
 option go_package = "./todoPb";
 
 service ToDoList {
-  rpc CreateToDoList (ToDoListContent) returns (Result) {}
+  rpc CreateToDoList (ToDoListDetail) returns (ToDoListResult) {}
+  rpc ReadToDoList (ToDoListPage) returns (ToDoListByPage) {}
 }
 
-message Result {
+message ToDoListPage {
+  int64 page = 1;
+}
+
+message ToDoListResult {
   int64 record = 1;
 }
 
@@ -20,12 +25,16 @@ message ToDoListContent {
   int64 datetime = 3;
 }
 
+message ToDoListByPage {
+  repeated ToDoListContent todolist = 1;
+}
+
 message ToDoListDetail {
-  // @inject_tag: xorm:"'id' not null pk autoincr"
+  // @inject_tag: form:"id" xorm:"'id' not null pk autoincr"
   int64 id = 1;
-  // @inject_tag: xorm:"'content' varchar(300) not null default ''"
+  // @inject_tag: form:"content" xorm:"'content' varchar(300) not null default ''"
   string content = 2;
-  // @inject_tag: xorm:"'datetime' int(10) not null default 0"
+  // @inject_tag: form:"datetime" xorm:"'datetime' int(10) not null default 0"
   int64 datetime = 3;
   // @inject_tag: xorm:"'created_at' created"
   int64 created = 4;

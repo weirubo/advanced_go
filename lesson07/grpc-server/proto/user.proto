@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package = "./todoPb";
+
 service User {
   rpc Register (UserInfo) returns (Result) {}
   rpc Login (UserInfo) returns (Result) {}

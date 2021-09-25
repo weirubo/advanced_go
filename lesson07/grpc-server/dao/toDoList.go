@@ -5,7 +5,7 @@ import (
 	pb "lesson07/grpc-server/pb/todoPb"
 )
 
-func Add(ctx context.Context, in *pb.ToDoListContent) (int64, error) {
+func Add(ctx context.Context, in *pb.ToDoListDetail) (int64, error) {
 	err := eg.Sync2(new(pb.ToDoListDetail))
 	if err != nil {
 		return 0, err
