@@ -4,29 +4,8 @@ syntax = "proto3";
 option go_package = "./todoPb";
 
 service ToDoList {
-  rpc CreateToDoList (ToDoListDetail) returns (ToDoListResult) {}
-  rpc ReadToDoList (ToDoListPage) returns (ToDoListByPage) {}
-}
-
-message ToDoListPage {
-  int64 page = 1;
-}
-
-message ToDoListResult {
-  int64 record = 1;
-}
-
-message ToDoListContent {
-  // @inject_tag: form:"id"
-  int64 id = 1;
-  // @inject_tag: form:"content"
-  string content = 2;
-  // @inject_tag: form:"datetime"
-  int64 datetime = 3;
-}
-
-message ToDoListByPage {
-  repeated ToDoListContent todolist = 1;
+  rpc CreateToDoList (ToDoListDetail) returns (CreateToDoListResult) {}
+  rpc ReadToDoList (ToDoListPage) returns (ReadToDoListByPage) {}
 }
 
 message ToDoListDetail {
@@ -42,4 +21,16 @@ message ToDoListDetail {
   int64 updated = 5;
   // @inject_tag: xorm:"'deleted_at' deleted"
   int64 deleted = 6;
+}
+
+message CreateToDoListResult {
+  int64 record = 1;
+}
+
+message ToDoListPage {
+  int64 page = 1;
+}
+
+message ReadToDoListByPage {
+  repeated ToDoListDetail todolist = 1;
 }

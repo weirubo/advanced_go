@@ -18,8 +18,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ToDoListClient interface {
-	CreateToDoList(ctx context.Context, in *ToDoListDetail, opts ...grpc.CallOption) (*ToDoListResult, error)
-	ReadToDoList(ctx context.Context, in *ToDoListPage, opts ...grpc.CallOption) (*ToDoListByPage, error)
+	CreateToDoList(ctx context.Context, in *ToDoListDetail, opts ...grpc.CallOption) (*CreateToDoListResult, error)
+	ReadToDoList(ctx context.Context, in *ToDoListPage, opts ...grpc.CallOption) (*ReadToDoListByPage, error)
 }
 
 type toDoListClient struct {
@@ -30,8 +30,8 @@ func NewToDoListClient(cc grpc.ClientConnInterface) ToDoListClient {
 	return &toDoListClient{cc}
 }
 
-func (c *toDoListClient) CreateToDoList(ctx context.Context, in *ToDoListDetail, opts ...grpc.CallOption) (*ToDoListResult, error) {
-	out := new(ToDoListResult)
+func (c *toDoListClient) CreateToDoList(ctx context.Context, in *ToDoListDetail, opts ...grpc.CallOption) (*CreateToDoListResult, error) {
+	out := new(CreateToDoListResult)
 	err := c.cc.Invoke(ctx, "/ToDoList/CreateToDoList", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -39,8 +39,8 @@ func (c *toDoListClient) CreateToDoList(ctx context.Context, in *ToDoListDetail,
 	return out, nil
 }
 
-func (c *toDoListClient) ReadToDoList(ctx context.Context, in *ToDoListPage, opts ...grpc.CallOption) (*ToDoListByPage, error) {
-	out := new(ToDoListByPage)
+func (c *toDoListClient) ReadToDoList(ctx context.Context, in *ToDoListPage, opts ...grpc.CallOption) (*ReadToDoListByPage, error) {
+	out := new(ReadToDoListByPage)
 	err := c.cc.Invoke(ctx, "/ToDoList/ReadToDoList", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -52,8 +52,8 @@ func (c *toDoListClient) ReadToDoList(ctx context.Context, in *ToDoListPage, opt
 // All implementations must embed UnimplementedToDoListServer
 // for forward compatibility
 type ToDoListServer interface {
-	CreateToDoList(context.Context, *ToDoListDetail) (*ToDoListResult, error)
-	ReadToDoList(context.Context, *ToDoListPage) (*ToDoListByPage, error)
+	CreateToDoList(context.Context, *ToDoListDetail) (*CreateToDoListResult, error)
+	ReadToDoList(context.Context, *ToDoListPage) (*ReadToDoListByPage, error)
 	mustEmbedUnimplementedToDoListServer()
 }
 
@@ -61,10 +61,10 @@ type ToDoListServer interface {
 type UnimplementedToDoListServer struct {
 }
 
-func (UnimplementedToDoListServer) CreateToDoList(context.Context, *ToDoListDetail) (*ToDoListResult, error) {
+func (UnimplementedToDoListServer) CreateToDoList(context.Context, *ToDoListDetail) (*CreateToDoListResult, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateToDoList not implemented")
 }
-func (UnimplementedToDoListServer) ReadToDoList(context.Context, *ToDoListPage) (*ToDoListByPage, error) {
+func (UnimplementedToDoListServer) ReadToDoList(context.Context, *ToDoListPage) (*ReadToDoListByPage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadToDoList not implemented")
 }
 func (UnimplementedToDoListServer) mustEmbedUnimplementedToDoListServer() {}

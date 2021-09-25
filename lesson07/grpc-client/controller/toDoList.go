@@ -17,7 +17,7 @@ type Result struct {
 }
 
 func CreateToDoList(ctx *gin.Context) {
-	param := new(pb.ToDoListContent)
+	param := new(pb.ToDoListDetail)
 	param.Datetime = time.Now().Unix()
 	err := ctx.ShouldBind(param)
 	if err != nil {
