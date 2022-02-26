@@ -6,3 +6,4 @@
 5. [Golang 语言 gRPC 到底是什么？](https://mp.weixin.qq.com/s/O36Xrufq60Vpoijh5LCDtw)
 6. [Golang 语言 gRPC 怎么使用？](https://mp.weixin.qq.com/s/dzBrxZ4Q7TnuTXkKzXkASQ)
 7. [Golang 语言编写 gRPC 实战项目](https://mp.weixin.qq.com/s/P317uoG-unNR_tZywVUFTg)
+8. [Golang 语言 gRPC 服务怎么同时支持 gRPC 和 HTTP 客户端调用？](https://mp.weixin.qq.com/s/gyT8Sgq6oqfKGq7UwwPuHA)
