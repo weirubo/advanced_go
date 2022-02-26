@@ -1,0 +1,57 @@
+/*
+ protoc -I proto \
+  --go_out ./pb/todoPb --go_opt paths=source_relative \
+  --go-grpc_out ./pb/todoPb --go-grpc_opt paths=source_relative \
+  --grpc-gateway_out ./pb/todoPb --grpc-gateway_opt paths=source_relative \
+  proto/toDoList.proto
+ */
+// protoc-go-inject-tag -XXX_skip=xorm -input=./pb/todoPb/toDoList.pb.go
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+option go_package = "./todoPb";
+
+service ToDoList {
+  rpc CreateToDoList (ToDoListDetail) returns (CreateToDoListResult) {
+    option (google.api.http) = {
+      post: "/v1/todolist/add"
+      body: "*"
+    };
+  }
+  rpc ReadToDoList (ToDoListPage) returns (ReadToDoListByPage) {
+    option (google.api.http) = {
+      get: "/v1/todolist/select"
+    };
+  }
+}
+
+message ToDoListDetail {
+  // @inject_tag: form:"id" xorm:"'id' not null pk autoincr"
+  int64 id = 1;
+  // @inject_tag: form:"uid" xorm:"'uid' bigint(20) not null default 0"
+  int64 uid = 2;
+  // @inject_tag: form:"content" xorm:"'content' varchar(300) not null default ''"
+  string content = 3;
+  // @inject_tag: form:"datetime" xorm:"'datetime' int(10) not null default 0"
+  int64 datetime = 4;
+  // @inject_tag: xorm:"'created_at' created"
+  int64 created = 5;
+  // @inject_tag: xorm:"'updated_at' updated"
+  int64 updated = 6;
+  // @inject_tag: xorm:"'deleted_at' deleted"
+  int64 deleted = 7;
+}
+
+message CreateToDoListResult {
+  int64 record = 1;
+}
+
+message ToDoListPage {
+  int64 page = 1;
+  int64 count = 2;
+}
+
+message ReadToDoListByPage {
+  repeated ToDoListDetail todolist = 1;
+}
